@@ -9,6 +9,7 @@ The API will live at `jokes.kalob.net/api`
 The current endpoints are:
 
 `GET /api/knock-kock`
+`GET /api/knock-knock/:keyword`
 
 ### Contributing
 
