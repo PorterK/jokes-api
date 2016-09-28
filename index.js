@@ -22,7 +22,9 @@ app.listen(2300, (e) => {
   console.log('==> 🚀 listening on 2300');
 });
 
+//create a function to encapsulate all of our data initialization
 let ensureIntialData = ()=>{
+  //since we only have one model right now, find it or create it
   return models.knockJoke.findOrCreate({
     where: {
       keyWord: 'luke'
@@ -38,10 +40,11 @@ db.authenticate()
     //Sync the database if it isn't in sync... don't force it to prevent data corruption
     return db.sync({force: false});
   })
-  .then(ensureIntialData)
+  .then(ensureIntialData) //ensure our initial data has been created by passing our function
   .then(()=>{
-    console.log('Initial data created or existed already!');
+    console.log('Initial data created or existed already!'); //Tell us the data has been created
   })
   .catch(err=>{
+    // If there is an error, tell us what it is
     console.log(`There was an error: ${err}`);
   });
