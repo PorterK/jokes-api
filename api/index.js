@@ -1,8 +1,11 @@
 'use strict';
 const express = require('express');
+const knock = require('./knock-knock');
 
 //Use the router built into express
 let router = express.Router();
+
+router.use('/knock-knock', knock);
 
 //For all non-defined requests, send this response
 router.all('*', (req, res)=> {
