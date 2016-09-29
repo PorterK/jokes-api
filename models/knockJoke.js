@@ -7,12 +7,17 @@ module.exports = (db)=>{
       keyWord: {
         //The keyword is a string
         type: Sequelize.STRING,
-        defaultValue: 'luke'
+        defaultValue: 'Luke'
       },
       joke: {
         //The joke is also a string
         type: Sequelize.STRING,
         defaultValue: 'Luke through the keyhole and you\'ll find out!'
+      },
+      tag: {
+        //The tag should be a string
+        type: Sequelize.ARRAY(Sequelize.TEXT),
+        defaultValue: ['random']
       }
     })
   )

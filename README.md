@@ -8,8 +8,9 @@ The API will live at `jokes.kalob.net/api`
 
 The current endpoints are:
 
-`GET /api/knock-kock`
-`GET /api/knock-knock/:keyword`
+`GET  /api/knock-kock`
+`GET  /api/knock-knock/:tag`
+`POST /api/knock-knock`
 
 ### Contributing
 

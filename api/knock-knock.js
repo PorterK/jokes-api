@@ -25,13 +25,15 @@ router.get('/', (req, res)=>{
 });
 
 //If a request is sent to the endpoint/keyword, where keyword is any word, send back the joke
-router.get('/:keyword', (req, res)=>{
+router.get('/:tag', (req, res)=>{
   //Get the keyword from the request
-  let keyword = req.params['keyword'];
+  let keyword = req.params['tag'];
 
   models.knockJoke.findAll({
     where: {
-      keyWord: _.lowerCase(keyword)
+      tag: {
+        $contains: [_.lowerCase(keyword)]
+      }
     }
   })
   .then(jokes =>{
@@ -42,10 +44,36 @@ router.get('/:keyword', (req, res)=>{
       //get a random joke by pulling a random index from the shuffled list
       let randomJoke = jokeList[_.random(0, jokeList.length - 1)];
 
-      res.send(randomJoke.joke);
+      res.send({
+        key: randomJoke.keyWord,
+        joke: randomJoke.joke
+      });
     }else{
         res.status(404).send('A joke with that keyword wasn\'t found, be the first to create it!');
     }
+  });
+});
+
+//If a post request is sent to the endpoint, create a joke
+router.post('/', (req, res)=>{
+  //get the joke and keyword from the request
+  let keyword = req.body.keyword;
+  let joke = req.body.joke;
+  let tag = req.body.tag;
+
+  //create the joke in the database
+  models.knockJoke.findOrCreate({
+    where: {
+      keyWord: keyword,
+      joke: joke,
+      tag: _.union(['random'], tag)
+    }
+  }).then(joke =>{
+    //if it was successfully created, tell us and show us the joke we created
+    res.send(`Joke successfully created: ${joke}`);
+  }).catch(err =>{
+    //if there is an error, display the error 500 (internal server error) and tell us the error message
+    res.status(500).send(err);
   });
 });
 

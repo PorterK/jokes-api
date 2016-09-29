@@ -27,7 +27,7 @@ let ensureIntialData = ()=>{
   //since we only have one model right now, find it or create it
   return models.knockJoke.findOrCreate({
     where: {
-      keyWord: 'luke'
+      keyWord: 'Luke'
     }
   });
 }
