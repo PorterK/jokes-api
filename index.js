@@ -11,8 +11,8 @@ let app = express();
 //Redirect requests to /api to directory /api
 app.use('/api', api);
 
-//Start the app on port 2300
-app.listen(2300, (e) => {
+//Start the app on port 2300 or whatever port Heroku gives us
+app.listen(process.env['PORT'] || 2300, (e) => {
   if (e){
     //If an error exists, tell us what the error is & cease opperation
     console.error('failed to bind', e);
