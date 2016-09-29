@@ -12,14 +12,15 @@ let app = express();
 app.use('/api', api);
 
 //Start the app on port 2300 or whatever port Heroku gives us
-app.listen(process.env['PORT'] || 2300, (e) => {
+let port = process.env['PORT'] || 2300
+app.listen(port, (e) => {
   if (e){
     //If an error exists, tell us what the error is & cease opperation
     console.error('failed to bind', e);
     process.exit(1);
   }
   //Let us know we are up & running
-  console.log('==> 🚀 listening on 2300');
+  console.log('==> 🚀 listening on %s', port);
 });
 
 //create a function to encapsulate all of our data initialization
