@@ -49,7 +49,9 @@ router.get('/:tag', (req, res)=>{
         joke: randomJoke.joke
       });
     }else{
-        res.status(404).send('A joke with that keyword wasn\'t found, be the first to create it!');
+        res.status(404).send({
+          error: 'A joke with that keyword wasn\'t found'
+        });
     }
   });
 });
